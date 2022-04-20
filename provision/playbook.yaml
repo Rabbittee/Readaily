@@ -1,5 +1,5 @@
 - hosts: all
 
   tasks:
-    - import_task: tasks/deploy_frontend.yaml
+    - import_tasks: tasks/deploy_frontend.yaml
       tags: [ deploy ]
