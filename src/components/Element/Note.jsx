@@ -12,13 +12,9 @@ const Vocabulary = {
 export function Note() {
   const [list, setList] = useState([]);
 
-  function addItem() {
-    setList((list) => list.concat(Vocabulary));
+  function addItem(vocabulary) {
+    setList((list) => list.concat(vocabulary));
   }
-
-  useEffect(() => {
-    console.log(list);
-  }, [list]);
 
   return (
     <section className="mx-auto mt-10 max-w-screen-lg px-10">
@@ -28,12 +24,12 @@ export function Note() {
             return <Button key={index}>{item}</Button>;
           })}
         </ul>
-        <Button onClick={addItem}>Add to Notes</Button>
+        <Button onClick={addItem(Vocabulary)}>Add to Notes</Button>
       </nav>
 
       <NoteList>
-        {list.map((item, key) => {
-          return <Task vocabulary={item} key={key} />;
+        {list.map((item) => {
+          return <Task vocabulary={item} key={item.index} />;
         })}
       </NoteList>
     </section>
