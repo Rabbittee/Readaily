@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Button, Task, NoteList } from './Note';
 
 const ButtonList = ['Tierney Bricker', 'Eonline.com'];
