@@ -1,2 +1,5 @@
-export * from './Navbar.jsx';
-export * from './Note.jsx';
+export * from './Navbar';
+export * from './Note';
+export * from './Logo';
+export * from './MenuIcon';
+export * from './Menu';
