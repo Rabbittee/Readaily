@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Button, Task, NoteList } from './Note';
 
-const ButtonList = ['Tierney Bricker', 'Eonline.com'];
+const buttonList = ['Tierney Bricker', 'Eonline.com'];
 
-const Vocabulary = {
+const vocabulary = {
   index: 1,
   title: 'Latest',
   translation: '最新的、新鮮的、新鮮、最新',
@@ -20,11 +20,11 @@ export function Note() {
     <section className="mx-auto mt-10 max-w-screen-lg px-10">
       <nav className="flex justify-between">
         <ul className="flex justify-between space-x-4 ">
-          {ButtonList.map((item, index) => {
+          {buttonList.map((item, index) => {
             return <Button key={index}>{item}</Button>;
           })}
         </ul>
-        <Button onClick={addItem(Vocabulary)}>Add to Notes</Button>
+        <Button onClick={addItem(vocabulary)}>Add to Notes</Button>
       </nav>
 
       <NoteList>
