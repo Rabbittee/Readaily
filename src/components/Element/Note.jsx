@@ -1,18 +1,18 @@
 import { useState } from 'react';
-import { Button, Task, NoteList } from './Note';
+import { Button, Task } from './NoteElement';
 
 const buttonList = ['Tierney Bricker', 'Eonline.com'];
-
-const vocabulary = {
-  index: 1,
-  title: 'Latest',
-  translation: '最新的、新鮮的、新鮮、最新',
-};
 
 export function Note() {
   const [list, setList] = useState([]);
 
-  function addItem(vocabulary) {
+  function addItem(voc) {
+    const vocabulary = {
+      index: new Date().getTime(),
+      title: 'Latest',
+      translation: '最新的、新鮮的、新鮮、最新',
+    };
+
     setList((list) => list.concat(vocabulary));
   }
 
@@ -24,14 +24,14 @@ export function Note() {
             return <Button key={index}>{item}</Button>;
           })}
         </ul>
-        <Button onClick={addItem(vocabulary)}>Add to Notes</Button>
+        <Button onClick={addItem}>Add to Notes</Button>
       </nav>
 
-      <NoteList>
+      <ul className="mt-10">
         {list.map((item) => {
           return <Task vocabulary={item} key={item.index} />;
         })}
-      </NoteList>
+      </ul>
     </section>
   );
 }
