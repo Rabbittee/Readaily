@@ -1,0 +1,5 @@
+app_user: surfer
+
+repo_url: https://github.com/Rabbittee/Readaily.git
+repo_dir: /home/surfer/readaily
+branch: main
