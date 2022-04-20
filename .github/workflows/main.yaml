@@ -38,6 +38,6 @@ jobs:
         with:
           playbook: provision/playbook.yaml
           key: ${{ secrets.ssh_key }}
-        options:
+        options: |
           --inventory provision/hosts.ini
           --extra-vars docker_image_tag=${{ steps.vars.outputs.sha }}
