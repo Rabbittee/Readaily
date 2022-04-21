@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Task } from './NoteElement';
 
 const buttonList = ['Tierney Bricker', 'Eonline.com'];
 
 export function Note() {
   const [list, setList] = useState([]);
+  const [data, setData] = useState([]);
 
   function addItem(voc) {
     const vocabulary = {
@@ -15,6 +16,12 @@ export function Note() {
 
     setList((list) => list.concat(vocabulary));
   }
+
+  useEffect(() => {
+    fetch('/api/articles')
+      .then((res) => res.json())
+      .then((json) => setData(json.articles));
+  }, []);
 
   return (
     <section className="mx-auto mt-10 max-w-screen-lg px-10">
