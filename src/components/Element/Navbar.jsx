@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { Logo, MenuIcon, Menu } from './';
+import { Logo, MenuIcon, Menu } from './NavbarElement';
 
 export function Navbar() {
   return (
