@@ -5,7 +5,7 @@ export function Tip({ word, position, link }) {
 
   return word ? (
     <div
-      className={clsx('tip fixed max-w-sm -translate-y-full transform bg-slate-200 p-5')}
+      className={clsx('Tip fixed max-w-sm -translate-y-full transform bg-slate-200 p-5')}
       style={{ left: left, top: top }}
     >
       {word}

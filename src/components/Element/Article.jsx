@@ -46,7 +46,8 @@ export function Article() {
     });
   }
 
-  function showTip() {
+  function showTip(e) {
+    e.preventDefault();
     const selection = window.getSelection();
     const range = selection.getRangeAt(0);
     const start = range.startOffset;
@@ -65,7 +66,7 @@ export function Article() {
   }
 
   function hideTip(e) {
-    if (!e.target.closest('.tip')) setSentence({});
+    if (!e.target.closest('.Tip')) setSentence({});
   }
 
   function translateURL() {
