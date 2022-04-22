@@ -3,7 +3,7 @@ import { Logo, MenuIcon, Menu } from './NavbarElement';
 
 export function Navbar() {
   return (
-    <nav className={clsx('sticky top-0 left-0', 'px-3 py-6', 'text-center')}>
+    <nav className={clsx('relative top-0 left-0', 'px-3 py-6', 'text-center')}>
       <Logo />
       <MenuIcon
         state=""
