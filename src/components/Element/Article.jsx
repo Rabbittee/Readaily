@@ -1,9 +1,10 @@
-import axios from 'axios';
 import clsx from 'clsx';
 import { useState, useEffect, useRef } from 'react';
-import { Calendar, Tip, Content } from './ArticleElement';
+import { Tip, Content, useArticleContext } from './ArticleElement';
+import { maxLength } from '../../scripts';
 
 export function Article() {
+  const { FetchData, message } = useArticleContext();
   const [article, setArticle] = useState([]);
   const [sentence, setSentence] = useState({});
   const [position, setPosition] = useState({});
@@ -24,22 +25,18 @@ export function Article() {
     const range = selection.getRangeAt(0);
     const start = range.startOffset;
     const end = range.endOffset;
-
-    setSentence(() => {
-      const text = article.content;
-      const word = text.substring(start, end);
-      if (word.trim()) {
-        return {
-          prev: text.substring(0, start),
-          word: word,
-          next: text.substring(end, text.length),
-        };
-      }
-    });
+    const text = article.content;
+    const word = text.substring(start, end);
+    const dist = {
+      prev: text.substring(0, start),
+      word: word,
+      next: text.substring(end, text.length),
+    };
+    word.trim() && setSentence(dist);
   }
 
   function hideTip(e) {
-    if (!e.target.closest('.Tip')) setSentence({});
+    !e.target.closest('.Tip') && setSentence({});
   }
 
   function translateURL() {
@@ -58,23 +55,17 @@ export function Article() {
     }
   }
 
+  async function fetchArticle() {
+    const data = await FetchData(`${process.env.REACT_APP_URL}/api/article`, 'get');
+    setArticle(maxLength(data.data.articles));
+  }
+
   useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_URL}/api/article`)
-      .then((res) => {
-        setArticle(
-          res.data.articles.reduce((acc, curr) =>
-            curr.content.length > acc.content.length ? curr : acc
-          )
-        );
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    fetchArticle();
   }, []);
 
   useEffect(() => {
-    if (sentence) {
+    if (sentence && article) {
       getTipPosition();
       setLink(translateURL());
       window.addEventListener('scroll', getTipPosition);
@@ -87,9 +78,12 @@ export function Article() {
     };
   }, [sentence]);
 
+  if (!article) {
+    return <article className={clsx('p-10 text-center text-red-700')}>{message}</article>;
+  }
+
   return (
     <article className={clsx('px-10')}>
-      <Calendar />
       <img src={article.imageUrl} alt="" />
       <h1 className={clsx('mt-8 font-serif text-3xl font-medium leading-normal')}>
         {article.title}
