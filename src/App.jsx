@@ -1,9 +1,9 @@
-import './App.css';
 import { BaseLayout } from './components/Layout/BaseLayout';
-import { Note } from './components/Element';
+import { Note, Article } from './components/Element';
 import { makeServer } from './mock/server';
+import { ArticleProvider } from './components/Element/ArticleElement';
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'mock') {
   makeServer();
 }
 
@@ -11,6 +11,9 @@ function App() {
   return (
     <div className="App">
       <BaseLayout>
+        <ArticleProvider>
+          <Article />
+        </ArticleProvider>
         <Note />
       </BaseLayout>
     </div>

@@ -1,2 +1,3 @@
-export * from './Navbar.jsx';
-export * from './Note.jsx';
+export * from './Navbar';
+export * from './Note';
+export * from './Article';
