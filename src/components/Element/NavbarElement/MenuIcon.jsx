@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 
-export function MenuIcon({ state, className }) {
+export function MenuIcon({ className }) {
   const style = 'block h-1 bg-slate-300 duration-200 ease-in-out rounded-full transform';
 
   return (

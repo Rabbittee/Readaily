@@ -9,7 +9,7 @@ export function Navbar() {
         state=""
         className={clsx('absolute inset-y-1/2 right-0 -translate-y-1/2 transform')}
       />
-      <Menu state="" />
+      <Menu />
     </nav>
   );
 }
