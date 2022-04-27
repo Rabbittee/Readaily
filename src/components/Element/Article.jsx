@@ -1,12 +1,11 @@
 import clsx from 'clsx';
 import { useState, useEffect, useRef } from 'react';
 import { Tip, Content, useArticleContext } from './ArticleElement';
-import { maxLength } from '../../scripts';
+import { maxLength, Selection, TranslateUrl } from '../../scripts';
 
 export function Article() {
-  const { FetchData, message } = useArticleContext();
+  const { fetchData, message, sentence, setSentence } = useArticleContext();
   const [article, setArticle] = useState([]);
-  const [sentence, setSentence] = useState({});
   const [position, setPosition] = useState({});
   const [link, setLink] = useState('');
   const markRef = useRef(null);
@@ -21,18 +20,7 @@ export function Article() {
 
   function showTip(e) {
     e.preventDefault();
-    const selection = window.getSelection();
-    const range = selection.getRangeAt(0);
-    const start = range.startOffset;
-    const end = range.endOffset;
-    const text = article.content;
-    const word = text.substring(start, end);
-    const dist = {
-      prev: text.substring(0, start),
-      word: word,
-      next: text.substring(end, text.length),
-    };
-    word.trim() && setSentence(dist);
+    setSentence(new Selection(article.content));
   }
 
   function hideTip(e) {
@@ -41,23 +29,15 @@ export function Article() {
 
   function translateURL() {
     if (sentence.word) {
-      const url = 'https://translate.google.com.tw';
-      const search = {
-        hl: 'zh-TW',
-        tab: 'rT',
-        sl: 'en',
-        tl: 'zh-TW',
-        text: sentence.word.trim(),
-        op: 'translate',
-      };
-      const result = `${url}/?` + new URLSearchParams({ ...search });
-      return result.toString().split('+').join('%20');
+      const translation = new TranslateUrl(sentence.word);
+      setLink(translation.link);
     }
   }
 
   async function fetchArticle() {
-    const data = await FetchData(`${process.env.REACT_APP_URL}/api/article`, 'get');
-    setArticle(maxLength(data.data.articles));
+    const data = await fetchData(`${process.env.REACT_APP_URL}/api/article`, 'get');
+    const { articles } = data.data;
+    setArticle(maxLength(articles));
   }
 
   useEffect(() => {
@@ -65,9 +45,9 @@ export function Article() {
   }, []);
 
   useEffect(() => {
-    if (sentence && article) {
+    if (article && sentence) {
       getTipPosition();
-      setLink(translateURL());
+      translateURL();
       window.addEventListener('scroll', getTipPosition);
       window.addEventListener('pointerdown', hideTip);
     }
@@ -78,11 +58,9 @@ export function Article() {
     };
   }, [sentence]);
 
-  if (!article) {
-    return <article className={clsx('p-10 text-center text-red-700')}>{message}</article>;
-  }
-
-  return (
+  return message ? (
+    <article className={clsx('p-10 text-center text-red-700')}>{message}</article>
+  ) : (
     <article className={clsx('px-10')}>
       <img src={article.imageUrl} alt="" />
       <h1 className={clsx('mt-8 font-serif text-3xl font-medium leading-normal')}>

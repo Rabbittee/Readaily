@@ -3,9 +3,7 @@ import clsx from 'clsx';
 export function Tip({ word, position, link }) {
   const { top, left } = position;
 
-  if (!word) return null;
-
-  return (
+  return !word ? null : (
     <div
       className={clsx('Tip fixed max-w-sm -translate-y-full transform bg-slate-200 p-5')}
       style={{ left: left, top: top }}

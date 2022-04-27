@@ -1,14 +1,14 @@
 import clsx from 'clsx';
 
 export function Content({ sentence, article, markRef }) {
-  const { word, prev, next } = sentence;
+  const { word, start, end } = sentence;
 
   return word ? (
     <>
-      {prev}
+      {start}
       <i ref={markRef}></i>
       <span className={clsx('bg-yellow-300')}>{word}</span>
-      {next}
+      {end}
     </>
   ) : (
     <>

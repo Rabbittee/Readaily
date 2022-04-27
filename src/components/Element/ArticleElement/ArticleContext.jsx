@@ -6,8 +6,9 @@ export const useArticleContext = () => useContext(ArticleContext);
 
 export function ArticleProvider({ children }) {
   const [message, setMessage] = useState('');
+  const [sentence, setSentence] = useState({});
 
-  async function Foo(url, method) {
+  async function checkData(url, method) {
     try {
       const data = await axios[method](url);
       return [data, null];
@@ -16,17 +17,19 @@ export function ArticleProvider({ children }) {
     }
   }
 
-  async function FetchData(url, method) {
-    const [data, error] = await Foo(url, method);
+  async function fetchData(url, method) {
+    const [data, error] = await checkData(url, method);
 
-    if (!error) {
+    if (error) {
       setMessage('Something wrong here, we will solve it as soon as possible.');
+      return;
     }
+
     return data;
   }
 
   return (
-    <ArticleContext.Provider value={{ message, setMessage, FetchData }}>
+    <ArticleContext.Provider value={{ message, setMessage, sentence, setSentence, fetchData }}>
       {children}
     </ArticleContext.Provider>
   );
