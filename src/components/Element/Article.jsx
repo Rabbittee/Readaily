@@ -35,8 +35,9 @@ export function Article() {
   }
 
   async function fetchArticle() {
-    const data = await fetchData(`${process.env.REACT_APP_URL}/api/article`, 'get');
-    const { articles } = data.data;
+    const {
+      data: { articles },
+    } = await fetchData(`${process.env.REACT_APP_URL}/api/article`, 'get');
     setArticle(maxLength(articles));
   }
 
@@ -45,7 +46,7 @@ export function Article() {
   }, []);
 
   useEffect(() => {
-    if (article && sentence) {
+    if (!message && sentence) {
       getTipPosition();
       translateURL();
       window.addEventListener('scroll', getTipPosition);
@@ -56,7 +57,7 @@ export function Article() {
       window.removeEventListener('scroll', getTipPosition);
       window.removeEventListener('pointerdown', hideTip);
     };
-  }, [sentence]);
+  }, [sentence, message]);
 
   return message ? (
     <article className={clsx('p-10 text-center text-red-700')}>{message}</article>

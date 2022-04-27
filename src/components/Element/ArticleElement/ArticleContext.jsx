@@ -20,12 +20,11 @@ export function ArticleProvider({ children }) {
   async function fetchData(url, method) {
     const [data, error] = await checkData(url, method);
 
-    if (error) {
+    if (!error) {
+      return data;
+    } else {
       setMessage('Something wrong here, we will solve it as soon as possible.');
-      return;
     }
-
-    return data;
   }
 
   return (
