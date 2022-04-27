@@ -1,45 +1,63 @@
+import axios from 'axios';
+
+export async function checkData(url, method) {
+  try {
+    const data = await axios[method](url);
+    return [data, null];
+  } catch (error) {
+    return [null, error];
+  }
+}
+
+export async function fetchData(url, method) {
+  const [data, error] = await checkData(url, method);
+
+  if (!error) {
+    return [data, null];
+  } else {
+    return [null, error];
+  }
+}
+
 export function maxLength(data) {
   return data.reduce((acc, curr) => (curr.content.length > acc.content.length ? curr : acc));
 }
 
 export class Selection {
+  selection = window.getSelection();
+  range = this.selection.getRangeAt(0);
+  start = this.range.startOffset;
+  end = this.range.endOffset;
+
   constructor(article) {
-    this.word = this.selection(article).word;
-    this.start = this.selection(article).start;
-    this.end = this.selection(article).end;
+    this.setSelection(article);
   }
 
-  selection(article) {
-    const selection = window.getSelection();
-    const range = selection.getRangeAt(0);
-    const start = range.startOffset;
-    const end = range.endOffset;
-
-    return {
-      word: article.substring(start, end).trim(),
-      start: article.substring(0, start),
-      end: article.substring(end, article.length),
-    };
+  setSelection(article) {
+    this.word = article.substring(this.start, this.end).trim();
+    this.start = article.substring(0, this.start);
+    this.end = article.substring(this.end, article.length);
   }
 }
 
-export class TranslateUrl {
+export class TranslateURL {
+  search = {
+    hl: 'zh-TW',
+    tab: 'rT',
+    sl: 'en',
+    tl: 'zh-TW',
+    text: '',
+    op: 'translate',
+  };
+
   constructor(word) {
-    this.link = this.translation(word);
+    this.link = this.setQueryString(word);
   }
 
-  translation(word) {
+  setQueryString(word) {
     const url = 'https://translate.google.com.tw';
-    const search = {
-      hl: 'zh-TW',
-      tab: 'rT',
-      sl: 'en',
-      tl: 'zh-TW',
-      text: word.trim(),
-      op: 'translate',
-    };
-    const result = `${url}/?` + new URLSearchParams({ ...search });
-
-    return result.toString().split('+').join('%20');
+    this.search.text = word.trim();
+    const result = `${url}/?` + new URLSearchParams({ ...this.search });
+    return result.split('+').join('%20');
   }
 }

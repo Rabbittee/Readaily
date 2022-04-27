@@ -1,10 +1,10 @@
 import clsx from 'clsx';
 import { useState, useEffect, useRef } from 'react';
 import { Tip, Content, useArticleContext } from './ArticleElement';
-import { maxLength, Selection, TranslateUrl } from '../../scripts';
+import { fetchData, maxLength, Selection, TranslateURL } from '../../scripts/utils';
 
 export function Article() {
-  const { fetchData, message, sentence, setSentence } = useArticleContext();
+  const { setMessage, message, sentence, setSentence } = useArticleContext();
   const [article, setArticle] = useState([]);
   const [position, setPosition] = useState({});
   const [link, setLink] = useState('');
@@ -29,16 +29,22 @@ export function Article() {
 
   function translateURL() {
     if (sentence.word) {
-      const translation = new TranslateUrl(sentence.word);
-      setLink(translation.link);
+      const { link: url } = new TranslateURL(sentence.word);
+      setLink(url);
     }
   }
 
   async function fetchArticle() {
-    const {
-      data: { articles },
-    } = await fetchData(`${process.env.REACT_APP_URL}/api/article`, 'get');
-    setArticle(maxLength(articles));
+    const [data, error] = await fetchData(`${process.env.REACT_APP_URL}/api/article`, 'get');
+
+    if (!error) {
+      const {
+        data: { articles },
+      } = data;
+      setArticle(maxLength(articles));
+    } else {
+      setMessage('Something wrong here, we will solve it as soon as possible.');
+    }
   }
 
   useEffect(() => {
