@@ -12,7 +12,7 @@ export function MenuIcon({ className }) {
         className
       )}
     >
-      <div className={clsx('w-2/3 space-y-1 space-y-1 transition-all duration-200')}>
+      <div className={clsx('w-2/3 space-y-1 transition-all duration-200')}>
         <span className={clsx(style)}></span>
         <span className={clsx(style)}></span>
         <span className={clsx(style, 'ml-auto w-2/3')}></span>

@@ -3,9 +3,9 @@ import { Navbar } from '../Element';
 
 export function BaseLayout({ children }) {
   return (
-    <div className={clsx('mx-auto w-screen max-w-4xl xl:w-8/12', 'border border-gray-300')}>
+    <div className={clsx('mx-auto flex h-screen w-screen')}>
       <Navbar />
-      <main>{children}</main>
+      <main className="flex space-x-4">{children}</main>
     </div>
   );
 }

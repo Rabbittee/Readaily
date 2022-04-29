@@ -1,14 +1,10 @@
 import clsx from 'clsx';
-import { Logo, MenuIcon, Menu } from './NavbarElement';
+import { Logo, Menu } from './NavbarElement';
 
 export function Navbar() {
   return (
-    <nav className={clsx('relative top-0 left-0', 'px-3 py-6', 'text-center')}>
+    <nav className={clsx(' h-full', 'bg-[#323232]', 'px-3 py-6', 'text-center')}>
       <Logo />
-      <MenuIcon
-        state=""
-        className={clsx('absolute inset-y-1/2 right-0 -translate-y-1/2 transform')}
-      />
       <Menu />
     </nav>
   );

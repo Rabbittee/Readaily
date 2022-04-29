@@ -1,7 +1,13 @@
 import clsx from 'clsx';
+import { useEffect, useState } from 'react';
 
 export function Tip({ word, position, link }) {
   const { top, left } = position;
+  const [wordList, setWordList] = useState([]);
+
+  useEffect(() => {
+    console.log(wordList);
+  }, [wordList]);
 
   return !word ? null : (
     <div
@@ -13,9 +19,7 @@ export function Tip({ word, position, link }) {
         <a href={link} target="_blank" rel="noreferrer noopener">
           Translate Link
         </a>
-        <a href="/" target="_blank">
-          Add to Note
-        </a>
+        <button onClick={() => setWordList(word)}>Add to Note</button>
       </div>
     </div>
   );

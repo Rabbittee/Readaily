@@ -13,8 +13,8 @@ function App() {
       <BaseLayout>
         <ArticleProvider>
           <Article />
+          <Note />
         </ArticleProvider>
-        <Note />
       </BaseLayout>
     </div>
   );
