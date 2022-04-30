@@ -1,13 +1,9 @@
 import clsx from 'clsx';
-import { useEffect, useState } from 'react';
+import { useArticleContext } from './ArticleContext';
 
 export function Tip({ word, position, link }) {
   const { top, left } = position;
-  const [wordList, setWordList] = useState([]);
-
-  useEffect(() => {
-    console.log(wordList);
-  }, [wordList]);
+  const { addWord } = useArticleContext();
 
   return !word ? null : (
     <div
@@ -19,7 +15,7 @@ export function Tip({ word, position, link }) {
         <a href={link} target="_blank" rel="noreferrer noopener">
           Translate Link
         </a>
-        <button onClick={() => setWordList(word)}>Add to Note</button>
+        <button onClick={addWord}>Add to Note</button>
       </div>
     </div>
   );
