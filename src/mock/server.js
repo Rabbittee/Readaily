@@ -1,5 +1,4 @@
 import { Server, Model } from 'miragejs';
-import { articles } from './data';
 
 export function makeServer({ environment = 'development' } = {}) {
   let server = new Server({
@@ -9,18 +8,18 @@ export function makeServer({ environment = 'development' } = {}) {
       word: Model,
     },
 
+    seeds(server) {
+      server.create('word', { id: 1, title: 'Meat', note: '肉肉' });
+    },
+
     routes() {
       this.namespace = 'api';
 
-      this.get('/articles', () => ({
-        articles: articles,
-      }));
-
-      this.get('/word', (schema) => {
+      this.get('/words', (schema) => {
         return schema.words.all();
       });
 
-      this.post('/word/create', (schema, request) => {
+      this.post('/words', (schema, request) => {
         let attrs = JSON.parse(request.requestBody);
 
         return schema.words.create(attrs);

@@ -1,9 +1,18 @@
 import clsx from 'clsx';
 import { useArticleContext } from './ArticleContext';
+import { STATE } from '../../../constants';
+let wordId = 0;
 
 export function Tip({ word, position, link }) {
   const { top, left } = position;
-  const { addWord } = useArticleContext();
+  const { sentence, setWordList } = useArticleContext();
+
+  function addWord() {
+    const { word } = sentence;
+    const item = { id: wordId++, title: word, describe: '', state: STATE.null };
+
+    setWordList((list) => list.concat(item));
+  }
 
   return !word ? null : (
     <div

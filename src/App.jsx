@@ -3,7 +3,7 @@ import { Note, Article } from './components/Element';
 import { makeServer } from './mock/server';
 import { ArticleProvider } from './components/Element/ArticleElement';
 
-if (process.env.NODE_ENV === 'mock') {
+if (process.env.NODE_ENV === '') {
   makeServer();
 }
 
