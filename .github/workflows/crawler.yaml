@@ -16,7 +16,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          if [ -f scripts/requirements.txt ]; then pip install -r script/requirements.txt; fi
+          if [ -f scripts/requirements.txt ]; then pip install -r scripts/requirements.txt; fi
       - name: Run Python Script
         run: |
           python scripts/BBC/crawler.py
