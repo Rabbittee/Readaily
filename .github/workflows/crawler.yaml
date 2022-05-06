@@ -1,7 +1,7 @@
 name: Create daily news from BBC
 on:
   schedule:
-    - cron:  '10 6 * * *'
+    - cron: '/5 * * * *'
 
 jobs:
   create_daily:
