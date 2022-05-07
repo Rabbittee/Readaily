@@ -1,6 +1,6 @@
 import { useArticleContext } from './ArticleElement';
 import { Task } from './NoteElement';
-import { STATE } from '../../constants';
+import { STATE } from 'constants';
 
 export function Note() {
   const { wordList, setWordList } = useArticleContext();

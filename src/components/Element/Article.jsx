@@ -1,8 +1,8 @@
 import clsx from 'clsx';
 import { useState, useEffect, useRef } from 'react';
 import { Tip, Content, useArticleContext } from './ArticleElement';
-import { maxLength, Selection, TranslateURL } from '../../scripts/utils';
-import { fetchData } from '../../api';
+import { maxLength, Selection, TranslateURL } from 'scripts/utils';
+import { fetchData } from 'api';
 
 export function Article() {
   const { setMessage, message, sentence, setSentence } = useArticleContext();

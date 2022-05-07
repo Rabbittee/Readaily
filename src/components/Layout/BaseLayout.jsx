@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { Navbar } from '../Element';
+import { Navbar } from 'components/Element';
 
 export function BaseLayout({ children }) {
   return (

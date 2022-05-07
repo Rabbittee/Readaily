@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { useArticleContext } from './ArticleContext';
-import { STATE } from '../../../constants';
+import { STATE } from 'constants';
 let wordId = 0;
 
 export function Tip({ word, position, link }) {
