@@ -1,18 +1,18 @@
 import clsx from 'clsx';
-import { useArticleContext } from './ArticleContext';
-import { STATE } from 'constants';
-let wordId = 0;
+import { useModalContext } from '../ModalElement';
+import { useArticleContext } from '.';
 
 export function Tip({ word, position, link }) {
   const { top, left } = position;
-  const { sentence, setWordList } = useArticleContext();
 
-  function addWord() {
-    const { word } = sentence;
-    const item = { id: wordId++, title: word, describe: '', state: STATE.null };
+  const { toggleModal } = useModalContext();
 
-    setWordList((list) => list.concat(item));
-  }
+  const { setVocabulary } = useArticleContext();
+
+  const addNote = () => {
+    setVocabulary(word);
+    toggleModal();
+  };
 
   return !word ? null : (
     <div
@@ -24,7 +24,7 @@ export function Tip({ word, position, link }) {
         <a href={link} target="_blank" rel="noreferrer noopener">
           Translate Link
         </a>
-        <button onClick={addWord}>Add to Note</button>
+        <button onClick={addNote}>Add to Note</button>
       </div>
     </div>
   );

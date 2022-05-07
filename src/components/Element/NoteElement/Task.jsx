@@ -1,5 +1,5 @@
-import { STATE } from '../../../constants';
-import Icon from '../icon';
+import { STATE } from 'constants';
+import Icon from '../Icon';
 import { Input } from './Input';
 
 export function Task({ vocabulary, onChange }) {

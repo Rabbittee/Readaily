@@ -3,7 +3,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'gray-primary': '#323232',
+        gray: {
+          DEFAULT: '#DADADA',
+          dark: '#505050',
+          primary: '#323232',
+        },
+      },
+      letterSpacing: {
+        title: '.2em',
       },
     },
   },
