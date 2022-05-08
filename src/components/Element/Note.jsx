@@ -11,16 +11,27 @@ export function Note() {
     onUpdate({ id: Number(name), title: value, state: STATE.edit });
   }
 
+  function onDelete(item) {
+    setWordList((list) => list.filter((_item) => _item.id !== item.id));
+  }
+
   function onUpdate(item) {
     setWordList((list) => list.map((_item) => (_item.id === item.id ? item : _item)));
   }
 
   return (
-    <section className="mx-auto w-full max-w-lg bg-gray-200 px-10 pt-10">
+    <section className="mx-auto hidden w-full max-w-lg bg-gray-200 px-10 pt-10 lg:block">
       <h2 className="text-center uppercase">vocabulary note</h2>
       <ul className="mt-10 space-y-4">
         {wordList.map((word) => {
-          return <Task key={word.id} vocabulary={word} onChange={onChange} />;
+          return (
+            <Task
+              key={word.id}
+              vocabulary={word}
+              onChange={onChange}
+              onDelete={() => onDelete(word)}
+            />
+          );
         })}
       </ul>
     </section>

@@ -1,4 +1,5 @@
 import { createPortal } from 'react-dom';
+import clsx from 'clsx';
 import Icon from './Icon';
 import { useModalContext } from './ModalElement';
 
@@ -9,7 +10,15 @@ export const Modal = ({ children }) => {
 
   //use createPortal can render in custom div not in root
   return createPortal(
-    <div className="fixed top-0 right-0 z-10 flex h-screen w-full bg-black bg-opacity-90">
+    <div
+      className={clsx(
+        'fixed top-0 right-0 z-10',
+        'flex',
+        'h-screen w-full',
+        'bg-black bg-opacity-90',
+        showModal && 'animate-fadeIn'
+      )}
+    >
       <button className="fixed top-11 right-11 w-8" onClick={toggleModal}>
         <span className="text-white">
           <Icon.Close />
