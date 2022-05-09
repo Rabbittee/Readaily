@@ -134,7 +134,7 @@ def get_news_list():
             list(
                 set(
                     [
-                        host + a["href"]
+                        host + a["href"].split("/#")[0]
                         for a in html.find(id="topos-component").find_all("a")
                         if category["keyword"] in a["href"]
                         and a["href"].startswith("/news/")
