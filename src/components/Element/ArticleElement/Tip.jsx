@@ -1,7 +1,18 @@
 import clsx from 'clsx';
+import { useModalContext } from '../ModalElement';
+import { useArticleContext } from '.';
 
 export function Tip({ word, position, link }) {
   const { top, left } = position;
+
+  const { toggleModal } = useModalContext();
+
+  const { setVocabulary } = useArticleContext();
+
+  const addNote = () => {
+    setVocabulary(word);
+    toggleModal();
+  };
 
   return !word ? null : (
     <div
@@ -13,9 +24,7 @@ export function Tip({ word, position, link }) {
         <a href={link} target="_blank" rel="noreferrer noopener">
           Translate Link
         </a>
-        <a href="/" target="_blank">
-          Add to Note
-        </a>
+        <button onClick={addNote}>Add to Note</button>
       </div>
     </div>
   );

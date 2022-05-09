@@ -6,10 +6,19 @@ export const useArticleContext = () => useContext(ArticleContext);
 export function ArticleProvider({ children }) {
   const [message, setMessage] = useState('');
   const [sentence, setSentence] = useState({});
+  const [wordList, setWordList] = useState([]);
+  const [vocabulary, setVocabulary] = useState(''); //temp state to memory vocabulary in modal
 
-  return (
-    <ArticleContext.Provider value={{ message, setMessage, sentence, setSentence }}>
-      {children}
-    </ArticleContext.Provider>
-  );
+  const value = {
+    message,
+    setMessage,
+    sentence,
+    setSentence,
+    wordList,
+    setWordList,
+    vocabulary,
+    setVocabulary,
+  };
+
+  return <ArticleContext.Provider value={value}>{children}</ArticleContext.Provider>;
 }

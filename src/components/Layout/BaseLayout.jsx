@@ -1,11 +1,11 @@
 import clsx from 'clsx';
-import { Navbar } from '../Element';
+import { Navbar } from 'components/Element';
 
 export function BaseLayout({ children }) {
   return (
-    <div className={clsx('mx-auto w-screen max-w-4xl xl:w-8/12', 'border border-gray-300')}>
+    <div className={clsx('mx-auto flex min-h-screen flex-col md:flex-row')}>
       <Navbar />
-      <main>{children}</main>
+      <main className="flex space-x-4">{children}</main>
     </div>
   );
 }
