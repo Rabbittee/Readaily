@@ -138,6 +138,7 @@ def get_news_list():
                         for a in html.find(id="topos-component").find_all("a")
                         if category["keyword"] in a["href"]
                         and a["href"].startswith("/news/")
+                        and a.find("span") is None
                     ]
                 )
             ),
