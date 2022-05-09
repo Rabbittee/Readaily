@@ -27,7 +27,7 @@ export function NavbarList({ className }) {
               item.active ? activeStyle : 'opacity-60'
             )}
           >
-            <span className={item.width}>{IconComponent(item.title)}</span>
+            <span className="w-6">{IconComponent(item.title)}</span>
             <span>{item.title}</span>
           </li>
         );
