@@ -1,6 +1,6 @@
 import { createPortal } from 'react-dom';
 import clsx from 'clsx';
-import Icon from '.';
+import Icon from './Icon';
 import { useModalContext } from './ModalElement';
 
 export const Modal = ({ children }) => {
