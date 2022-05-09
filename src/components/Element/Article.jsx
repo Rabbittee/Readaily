@@ -1,8 +1,7 @@
 import clsx from 'clsx';
 import { useState, useEffect, useRef } from 'react';
 import { Tip, Content, useArticleContext } from './ArticleElement';
-import { maxLength, Selection, TranslateURL } from 'scripts/utils';
-import { fetchData } from 'api';
+import { fetchData, maxLength, Selection, TranslateURL } from '../../scripts/utils';
 
 export function Article() {
   const { setMessage, message, sentence, setSentence } = useArticleContext();
@@ -36,7 +35,7 @@ export function Article() {
   }
 
   async function fetchArticle() {
-    const [data, error] = await fetchData('article', 'get');
+    const [data, error] = await fetchData(`${process.env.REACT_APP_URL}/api/article`, 'get');
 
     if (!error) {
       const {

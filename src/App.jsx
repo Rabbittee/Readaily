@@ -1,19 +1,20 @@
 import { BaseLayout } from './components/Layout/BaseLayout';
-import { Note, Article, Vocabulary } from './components/Element';
+import { Note, Article } from './components/Element';
+import { makeServer } from './mock/server';
 import { ArticleProvider } from './components/Element/ArticleElement';
-import { ModalProvider } from './components/Element/ModalElement';
+
+if (process.env.NODE_ENV === 'mock') {
+  makeServer();
+}
 
 function App() {
   return (
     <div className="App">
       <BaseLayout>
         <ArticleProvider>
-          <ModalProvider>
-            <Vocabulary />
-            <Article />
-            <Note />
-          </ModalProvider>
+          <Article />
         </ArticleProvider>
+        <Note />
       </BaseLayout>
     </div>
   );

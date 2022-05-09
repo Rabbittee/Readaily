@@ -1,37 +1,42 @@
-import { useArticleContext } from './ArticleElement';
-import { Task } from './NoteElement';
-import { STATE } from 'constants';
+import { useEffect, useState } from 'react';
+import { Button, Task } from './NoteElement';
+
+const buttonList = ['Tierney Bricker', 'Eonline.com'];
 
 export function Note() {
-  const { wordList, setWordList } = useArticleContext();
+  const [list, setList] = useState([]);
+  const [data, setData] = useState([]);
 
-  function onChange(event) {
-    const { name, value } = event.target;
+  function addItem(voc) {
+    const vocabulary = {
+      index: new Date().getTime(),
+      title: 'Latest',
+      translation: '最新的、新鮮的、新鮮、最新',
+    };
 
-    onUpdate({ id: Number(name), title: value, state: STATE.edit });
+    setList((list) => list.concat(vocabulary));
   }
 
-  function onDelete(item) {
-    setWordList((list) => list.filter((_item) => _item.id !== item.id));
-  }
-
-  function onUpdate(item) {
-    setWordList((list) => list.map((_item) => (_item.id === item.id ? item : _item)));
-  }
+  useEffect(() => {
+    fetch('/api/articles')
+      .then((res) => res.json())
+      .then((json) => setData(json.articles));
+  }, []);
 
   return (
-    <section className="mx-auto hidden w-full max-w-lg bg-gray-200 px-10 pt-10 lg:block">
-      <h2 className="text-center uppercase">vocabulary note</h2>
-      <ul className="mt-10 space-y-4">
-        {wordList.map((word) => {
-          return (
-            <Task
-              key={word.id}
-              vocabulary={word}
-              onChange={onChange}
-              onDelete={() => onDelete(word)}
-            />
-          );
+    <section className="mx-auto mt-10 max-w-screen-lg px-10">
+      <nav className="flex justify-between">
+        <ul className="flex justify-between space-x-4 ">
+          {buttonList.map((item, index) => {
+            return <Button key={index}>{item}</Button>;
+          })}
+        </ul>
+        <Button onClick={addItem}>Add to Notes</Button>
+      </nav>
+
+      <ul className="mt-10">
+        {list.map((item) => {
+          return <Task vocabulary={item} key={item.index} />;
         })}
       </ul>
     </section>
