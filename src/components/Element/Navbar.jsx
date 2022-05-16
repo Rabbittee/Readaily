@@ -8,7 +8,7 @@ export function Navbar() {
   return (
     <nav
       className={clsx(
-        'md:h-full',
+        'md:min-h-screen',
         'flex justify-between md:flex-col md:justify-start',
         'md:bg-gray-primary',
         'px-3 py-6',

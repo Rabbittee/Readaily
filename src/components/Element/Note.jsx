@@ -1,6 +1,8 @@
 import { useArticleContext } from './ArticleElement';
 import { Task } from './NoteElement';
 import { STATE } from 'constants';
+import { useEffect } from 'react';
+import { apiGetNote } from 'api';
 
 export function Note() {
   const { wordList, setWordList } = useArticleContext();
@@ -18,6 +20,18 @@ export function Note() {
   function onUpdate(item) {
     setWordList((list) => list.map((_item) => (_item.id === item.id ? item : _item)));
   }
+
+  async function fetchNote() {
+    const res = await apiGetNote();
+
+    const { data } = res;
+
+    setWordList([data]);
+  }
+
+  useEffect(() => {
+    fetchNote();
+  }, []);
 
   return (
     <section className="mx-auto hidden w-full max-w-lg bg-gray-200 px-10 pt-10 lg:block">
