@@ -5,6 +5,7 @@ export const handlers = [
   rest.get('api/word', (req, res, ctx) => {
     return res(
       ctx.json({
+        id: 1,
         title: 'vocabulary',
         describe: 'describe',
       })
