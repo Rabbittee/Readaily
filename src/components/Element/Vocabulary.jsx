@@ -1,27 +1,37 @@
 import clsx from 'clsx';
 import { Modal } from '.';
-import { STATE } from 'constants';
 import { useArticleContext } from './ArticleElement';
 import { useModalContext } from './ModalElement';
-import { useState } from 'react';
+import useStore from 'store';
 
 export function Vocabulary() {
-  const { vocabulary, setWordList } = useArticleContext();
+  const { vocabulary } = useArticleContext();
   const { toggleModal } = useModalContext();
-  const [value, setValue] = useState(''); //input value
+
+  const addWord = useStore((state) => state.addWord);
+
+  const words = useStore((state) => state.words);
+
+  const describe = useStore((state) => state.describe);
+
+  const setNewWord = useStore((state) => state.setNewWord);
 
   function onChange(event) {
-    setValue(event.target.value);
+    setNewWord(event.target.value);
   }
+
+  const updateWord = useStore((state) => state.updateWord);
 
   function onSubmit(event) {
     event.preventDefault();
 
-    const item = { id: Date.now(), title: vocabulary, describe: value, state: STATE.null };
+    if (words.find((word) => word.title === vocabulary)) {
+      const index = words.find((word) => word.title === vocabulary).id;
 
-    setWordList((list) => list.concat(item));
-
-    setValue('');
+      updateWord(index, describe);
+    } else {
+      addWord(vocabulary, describe);
+    }
 
     toggleModal();
   }
@@ -35,18 +45,18 @@ export function Vocabulary() {
           <input
             type="text"
             name="describe"
-            value={value}
+            value={describe}
             onChange={onChange}
-            className=" rounded-md border px-2 py-3 text-sm"
+            className="rounded-md border px-2 py-3 text-sm"
           />
           <button
             className={clsx(
               'rounded-md',
-              value ? 'bg-gray-dark' : 'bg-gray',
+              describe ? 'bg-gray-dark' : 'bg-gray',
               'py-3',
               'uppercase tracking-title text-white'
             )}
-            disabled={!value}
+            disabled={!describe}
           >
             Save
           </button>

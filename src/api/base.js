@@ -37,4 +37,7 @@ export const baseInstance = function (options) {
 
 export const request = baseInstance();
 
-export const apiGetNote = () => request.get(`word`);
+// export const apiGetNote = () => request.get(`word`);
+export const Notes = {
+  getAll: () => request.get(`word`),
+};
