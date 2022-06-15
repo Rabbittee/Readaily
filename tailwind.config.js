@@ -6,6 +6,7 @@ module.exports = {
         gray: {
           DEFAULT: '#DADADA',
           dark: '#505050',
+          light: '#F8F8F8',
           primary: '#323232',
         },
       },
@@ -21,6 +22,9 @@ module.exports = {
             opacity: '1',
           },
         },
+      },
+      boxShadow: {
+        top: '0px -5px 15px 0px rgba(0, 0, 0, .1)',
       },
     },
     animation: {
