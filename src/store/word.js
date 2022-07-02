@@ -23,28 +23,34 @@ export default combine({ words: [] }, (set) => ({
   describe: '',
   getAllWords: () =>
     Notes.getAll()
-      .then((res) => res.data)
+      .then((res) => res.data.words)
       .then((words) => set({ words })),
   addWord: (title, describe) =>
-    set((state) => ({
-      ...state,
-      words: addWord(state.words, title, describe),
-      title: '',
-      describe: '',
-    })),
+    Notes.postWord(title, describe).then((res) =>
+      set((state) => ({
+        ...state,
+        words: addWord(state.words, title, describe),
+        title: '',
+        describe: '',
+      }))
+    ),
   setNewWord: (describe) =>
     set((state) => ({
       ...state,
       describe,
     })),
   updateWord: (id, describe) =>
-    set((state) => ({
-      ...state,
-      words: updateWord(state.words, id, describe),
-    })),
+    Notes.updateWord(id, describe).then((res) =>
+      set((state) => ({
+        ...state,
+        words: updateWord(state.words, id, describe),
+      }))
+    ),
   removeWord: (id) =>
-    set((state) => ({
-      ...state,
-      words: removeWord(state.words, id),
-    })),
+    Notes.deleteWord(id).then((res) =>
+      set((state) => ({
+        ...state,
+        words: removeWord(state.words, id),
+      }))
+    ),
 }));

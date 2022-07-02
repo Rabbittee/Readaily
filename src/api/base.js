@@ -26,7 +26,7 @@ export async function fetchData(url, method, base) {
  */
 export const baseInstance = function (options) {
   const axios = Axios.create({
-    baseURL: '/api/',
+    baseURL: `${process.env.REACT_APP_API_URL}/api/`,
     headers: {},
   });
 
@@ -39,5 +39,8 @@ export const request = baseInstance();
 
 // export const apiGetNote = () => request.get(`word`);
 export const Notes = {
-  getAll: () => request.get(`word`),
+  getAll: () => request.get(`words`),
+  postWord: (title, describe) => request.post(`words/create`, { title, describe }),
+  deleteWord: (id) => request.delete(`words/${id}`),
+  updateWord: (id, describe) => request.put(`words/${id}`, { describe }),
 };
