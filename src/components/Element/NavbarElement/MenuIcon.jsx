@@ -1,10 +1,11 @@
 import clsx from 'clsx';
 
-export function MenuIcon({ className }) {
+export function MenuIcon({ className, setMobileMenu }) {
   const style = 'block h-0.5 bg-slate-300 duration-200 ease-in-out rounded-full transform';
 
   return (
-    <div
+    <button
+      onClick={() => setMobileMenu(true)}
       className={clsx(
         'menu-icon',
         'aspect-square w-12 border bg-black',
@@ -17,6 +18,6 @@ export function MenuIcon({ className }) {
         <span className={clsx(style)}></span>
         <span className={clsx(style)}></span>
       </div>
-    </div>
+    </button>
   );
 }

@@ -11,6 +11,7 @@ import { ReactComponent as Technology } from 'assets/svg/technology.svg';
 import { ReactComponent as Book } from 'assets/svg/book.svg';
 import { ReactComponent as Clipboard } from 'assets/svg/clipboard.svg';
 import { ReactComponent as User } from 'assets/svg/user.svg';
+import { ReactComponent as DropDown } from 'assets/svg/dropdown-arrow.svg';
 
 const Icon = {
   Edit,
@@ -26,6 +27,7 @@ const Icon = {
   Book,
   Clipboard,
   User,
+  DropDown,
 };
 
 export default Icon;
